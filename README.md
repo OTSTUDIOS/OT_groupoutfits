@@ -2,4 +2,4 @@
 
 ## OT_groupoutfits
 
-Create pre-defined outfits for groups/job with FiveM appreanance and ox_lib.
+Create pre-defined outfits for groups/job with FiveM appearance and ox_lib.
