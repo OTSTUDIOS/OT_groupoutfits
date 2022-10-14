@@ -21,7 +21,7 @@ local function permCheck(group, grade)
         return false
     elseif Config.Framework == 'QBCORE' then
         local player = QBCore.Functions.GetPlayerData()
-        if player.job.name == group and player.job.grade >= grade then
+        if (player.job.name == group and player.job.grade >= grade) or (player.gang.name == group and player.gang.grade >= grade) then
             return true
         end
         return false
