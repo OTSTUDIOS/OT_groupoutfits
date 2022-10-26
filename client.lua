@@ -43,7 +43,7 @@ local function createPed(self, i)
         gender = 5
     end
 
-    npcs[i] = CreatePed(gender, self.data.ped.model, self.pedCoords.x, self.pedCoords.y, self.pedCoords.z, self.pedCoords.w, false, false)
+    npcs[i] = CreatePed(gender, self.data.ped.model, self.pedCoords.x, self.pedCoords.y, self.pedCoords.z - 1.0, self.pedCoords.w, false, false)
     FreezeEntityPosition(npcs[i], true)
     SetEntityInvincible(npcs[i], true)
     SetBlockingOfNonTemporaryEvents(npcs[i], true)
@@ -66,8 +66,9 @@ end
 
 local function openMenu(outfits, group)
     local options = {}
+    local playerModel = GetEntityModel(cache.ped)
     for k, v in pairs(outfits) do
-        if permCheck(group, v.grade) then
+        if permCheck(group, v.grade) and v.model == playerModel then
             options[#options+1] = {id = 'job_clothes_' .. k, icon = "fa-solid fa-shirt", title = v.label, onSelect = function() changeOutfit(v) end}
         end
     end
@@ -75,9 +76,9 @@ local function openMenu(outfits, group)
         return lib.notify({type = 'error', description = 'You do not have access to this Wardrobe'})
     end
     if savedFit ~= nil then
-        options[#options+1] = {id = 'job_clothes_restore', icon = "fa-solid fa-shirt", title = 'Grab Clothes', onSelect = function() restoreOutfit() end}
+        options[#options+1] = {id = 'job_clothes_restore', icon = "fa-solid fa-hand-back-fist", title = 'Grab Clothes', onSelect = function() restoreOutfit() end}
     end
-    options[#options+1] = {id = 'job_clothes_save', icon = "fa-solid fa-shirt", title = 'Save Current Outfit', onSelect = function() saveOutfit() end}
+    options[#options+1] = {id = 'job_clothes_save', icon = "fa-solid fa-floppy-disk", title = 'Save Current Outfit', onSelect = function() saveOutfit() end}
     lib.registerContext({id = 'job_clothes', title = 'Wardrobe', options = options})
     lib.showContext('job_clothes')
 end
