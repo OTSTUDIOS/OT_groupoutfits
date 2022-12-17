@@ -129,3 +129,12 @@ Config.groups = {
         }
     },
 }
+
+Config.LocationsWardRobe =  {
+    {
+        coords = vector3(-163.6142, -1607.5497, 32.7),
+        distancepoint = 5, -- Radius of the point
+        distanceTrigger = 1,  -- Distance to trigger TextUI and Open Menu
+        ditsanceTriggerMarker = 5, -- Distance to show Marker
+    },
+}
