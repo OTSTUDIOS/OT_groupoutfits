@@ -99,7 +99,7 @@ for k, v in pairs(Config.groups) do
         local groupClothes = lib.points.new(coords, 3, {group = k, data = v})
 
         function groupClothes:onEnter()
-            lib.showTextUI('[E] Open Wardrobe', {})
+            lib.showTextUI('[E] - Open Wardrobe', {})
         end
 
         function groupClothes:onExit()
@@ -110,6 +110,26 @@ for k, v in pairs(Config.groups) do
             if IsControlJustReleased(0, 38) then
                 openMenu(self.data.outfits, self.group)
             end
+        end
+    end
+end
+
+for k,v in pairs(Config.LocationsWardRobe) do
+    local coords = vector3(v.coords.x, v.coords.y, v.coords.z)
+
+    local WardRobeClothes = lib.points.new(coords, v.distancepoint, {})
+
+    function WardRobeClothes:nearby()
+        if self.currentDistance < 5 then 
+            DrawMarker(23, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0, 200, 20, 20, 50, false, true, 2, nil, nil, false)
+        end
+        if self.currentDistance < v.distanceTrigger then
+            lib.showTextUI('[E] - Open Wardrobe Personal', {})
+            if IsControlJustReleased(0, 38) then
+                exports['fivem-appearance']:openWardrobe()
+            end
+        else 
+            lib.hideTextUI()
         end
     end
 end
