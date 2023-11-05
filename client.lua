@@ -50,8 +50,25 @@ local function createPed(self, i)
 end
 
 local function changeOutfit(outfit)
-    exports['fivem-appearance']:setPedComponents(cache.ped, {outfit.torso, outfit.undershirt, outfit.pants, outfit.shoes, outfit.bag, outfit.accesories, outfit.kevlar, outfit.badge, outfit.arms})
-    exports['fivem-appearance']:setPedProps(cache.ped, {outfit.hat})
+    local torso = outfit.torso
+    local undershirt = outfit.undershirt
+    local pants = outfit.pants
+    local shoes = outfit.shoes
+    local bag = outfit.bag
+    local accessories = outfit.accessories
+    local kevlar = outfit.kevlar
+    local badge = outfit.badge
+    local arms = outfit.arms
+    if not torso or not undershirt or not pants or not shoes or not bag or not accessories or not kevlar or not badge or not arms then
+        return
+    end
+    exports['fivem-appearance']:setPedComponents(cache.ped, {torso, undershirt, pants, shoes, bag, accesories, kevlar, badge, arms})
+    local hat = outfit.hat
+    if not hat then
+        -- error notify
+    else
+        exports['fivem-appearance']:setPedProps(cache.ped, {hat})
+    end
 end
 
 local function restoreOutfit()
